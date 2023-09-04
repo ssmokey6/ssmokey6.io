@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Banking</title>
+</head>
+<body>
+    <header>
+        <h1>Mobile Banking</h1>
+    </header>
+
+    <section id="login">
+        <h2>Connexion</h2>
+        <form id="login-form">
+            <label for="username">Nom d'utilisateur:</label>
+            <input type="text" id="username" required>
+            <label for="password">Mot de passe:</label>
+            <input type="password" id="password" required>
+            <button type="submit">Se connecter</button>
+        </form>
+    </section>
+
+    <section id="dashboard" style="display: none;">
+        <h2>Tableau de bord</h2>
+        <p>Bienvenue, <span id="user-name">Utilisateur</span></p>
+        <p>Solde: <span id="balance">0.00 MAD</span></p>
+        <button id="logout-button">Se déconnecter</button>
+    </section>
+
+    <section id="transactions" style="display: none;">
+        <h2>Opérations bancaires</h2>
+        <form id="transaction-form">
+            <label for="amount">Montant:</label>
+            <input type="number" id="amount" required min="0">
+            <button type="button" id="deposit-button">Déposer</button>
+            <button type="button" id="withdraw-button">Retirer</button>
+        </form>
+        <div id="transaction-history">
+            <h3>Historique des transactions</h3>
+            <ul>
+                <!-- Liste des transactions -->
+            </ul>
+        </div>
+    </section>

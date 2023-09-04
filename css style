@@ -1,0 +1,116 @@
+<style>
+        /* Styles CSS */
+
+/* Styles généraux */
+body {
+    font-family: Arial, sans-serif;
+    margin: 100spx;
+    padding: 200px;
+    background-color: #ffffff;
+}
+
+.container {
+    max-width: 600px;
+    margin: 2px;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+header {
+    text-align: center;
+    padding: 10px 0;
+    background-color: #9c0000;
+    color: #fff;
+}
+
+h1 {
+    margin: 0;
+}
+
+/* Styles pour les sections */
+section {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+h2 {
+    margin-top: 0;
+    font-size: 24px;
+}
+
+/* Styles pour les formulaires */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+label {
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="number"] {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+button[type="submit"],
+button[type="button"] {
+    padding: 10px;
+    background-color: #9c0000;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover,
+button[type="button"]:hover {
+    background-color: #9c0000;
+}
+
+/* Styles pour la liste des transactions */
+#transaction-history ul {
+    list-style: none;
+    padding: 0;
+}
+
+#transaction-history li {
+    margin-bottom: 5px;
+}
+
+/* Styles pour le tableau de bord */
+#dashboard p {
+    margin: 0;
+    font-weight: bold;
+}
+
+#dashboard button {
+    margin-top: 10px;
+}
+
+/* Styles pour le pied de page */
+footer {
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid #ffffff;
+}
+
+/* Media queries pour la mise en page mobile */
+@media (max-width: 480px) {
+    .container {
+        padding: 10px;
+    }
+}
+
+</style>

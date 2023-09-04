@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Banking</title>
+    <style>
+        /* Styles CSS */
+
+/* Styles généraux */
+body {
+    font-family: Arial, sans-serif;
+    margin: 100spx;
+    padding: 200px;
+    background-color: #ffffff;
+}
+
+.container {
+    max-width: 600px;
+    margin: 2px;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+header {
+    text-align: center;
+    padding: 10px 0;
+    background-color: #9c0000;
+    color: #fff;
+}
+
+h1 {
+    margin: 0;
+}
+
+/* Styles pour les sections */
+section {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+h2 {
+    margin-top: 0;
+    font-size: 24px;
+}
+
+/* Styles pour les formulaires */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+label {
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="number"] {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+button[type="submit"],
+button[type="button"] {
+    padding: 10px;
+    background-color: #9c0000;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover,
+button[type="button"]:hover {
+    background-color: #9c0000;
+}
+
+/* Styles pour la liste des transactions */
+#transaction-history ul {
+    list-style: none;
+    padding: 0;
+}
+
+#transaction-history li {
+    margin-bottom: 5px;
+}
+
+/* Styles pour le tableau de bord */
+#dashboard p {
+    margin: 0;
+    font-weight: bold;
+}
+
+#dashboard button {
+    margin-top: 10px;
+}
+
+/* Styles pour le pied de page */
+footer {
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid #ffffff;
+}
+
+/* Media queries pour la mise en page mobile */
+@media (max-width: 480px) {
+    .container {
+        padding: 10px;
+    }
+}
+
+</style>
+</head>
+<body>
+    <header>
+        <h1>Mobile Banking</h1>
+    </header>
+
+    <section id="login">
+        <h2>Connexion</h2>
+        <form id="login-form">
+            <label for="username">Nom d'utilisateur:</label>
+            <input type="text" id="username" required>
+            <label for="password">Mot de passe:</label>
+            <input type="password" id="password" required>
+            <button type="submit">Se connecter</button>
+        </form>
+    </section>
+
+    <section id="dashboard" style="display: none;">
+        <h2>Tableau de bord</h2>
+        <p>Bienvenue, <span id="user-name">Utilisateur</span></p>
+        <p>Solde: <span id="balance">0.00 MAD</span></p>
+        <button id="logout-button">Se déconnecter</button>
+    </section>
+
+    <section id="transactions" style="display: none;">
+        <h2>Opérations bancaires</h2>
+        <form id="transaction-form">
+            <label for="amount">Montant:</label>
+            <input type="number" id="amount" required min="0">
+            <button type="button" id="deposit-button">Déposer</button>
+            <button type="button" id="withdraw-button">Retirer</button>
+        </form>
+        <div id="transaction-history">
+            <h3>Historique des transactions</h3>
+            <ul>
+                <!-- Liste des transactions -->
+            </ul>
+        </div>
+    </section>
+
+    <script>
+        // Logique JavaScript pour gérer les interactions de l'application...
+
+        // Simulons un utilisateur et un solde initial
+        let currentUser = { username: "utilisateur", balance: 0 };
+
+        const loginForm = document.getElementById("login-form");
+        const dashboardSection = document.getElementById("dashboard");
+        const transactionSection = document.getElementById("transactions");
+        const userNameSpan = document.getElementById("user-name");
+        const balanceSpan = document.getElementById("balance");
+        const logoutButton = document.getElementById("logout-button");
+        const transactionForm = document.getElementById("transaction-form");
+        const amountInput = document.getElementById("amount");
+        const depositButton = document.getElementById("deposit-button");
+        const withdrawButton = document.getElementById("withdraw-button");
+        const transactionHistory = document.getElementById("transaction-history");
+
+        // Gérer la soumission du formulaire de connexion
+        loginForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            const username = document.getElementById("username").value;
+            currentUser.username = username;
+            updateDashboard();
+        });
+
+        // Gérer la déconnexion
+        logoutButton.addEventListener("click", function () {
+            currentUser.username = "Utilisateur";
+            currentUser.balance = 0;
+            updateDashboard();
+        });
+
+        // Gérer les dépôts
+        depositButton.addEventListener("click", function () {
+            const amount = parseFloat(amountInput.value);
+            if (!isNaN(amount) && amount > 0) {
+                currentUser.balance += amount;
+                updateTransactionHistory(`Dépôt de ${amount.toFixed(2)} MAD`);
+                updateDashboard();
+            }
+        });
+
+        // Gérer les retraits
+        withdrawButton.addEventListener("click", function () {
+            const amount = parseFloat(amountInput.value);
+            if (!isNaN(amount) && amount > 0 && amount <= currentUser.balance) {
+                currentUser.balance -= amount;
+                updateTransactionHistory(`Retrait de ${amount.toFixed(2)} MAD`);
+                updateDashboard();
+            }
+        });
+
+        // Mettre à jour le tableau de bord
+        function updateDashboard() {
+            userNameSpan.textContent = currentUser.username;
+            balanceSpan.textContent = currentUser.balance.toFixed(2) + " MAD";
+            loginForm.style.display = "none";
+            dashboardSection.style.display = "block";
+            transactionSection.style.display = "block";
+        }
+
+        // Mettre à jour l'historique des transactions
+        function updateTransactionHistory(transactionDescription) {
+            const transactionItem = document.createElement("li");
+            transactionItem.textContent = transactionDescription;
+            transactionHistory.querySelector("ul").appendChild(transactionItem);
+        }
+    </script>
+</body>
+</html>

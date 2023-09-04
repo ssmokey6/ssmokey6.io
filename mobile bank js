@@ -1,0 +1,69 @@
+<script>
+        // Logique JavaScript pour gérer les interactions de l'application...
+
+        // Simulons un utilisateur et un solde initial
+        let currentUser = { username: "utilisateur", balance: 0 };
+
+        const loginForm = document.getElementById("login-form");
+        const dashboardSection = document.getElementById("dashboard");
+        const transactionSection = document.getElementById("transactions");
+        const userNameSpan = document.getElementById("user-name");
+        const balanceSpan = document.getElementById("balance");
+        const logoutButton = document.getElementById("logout-button");
+        const transactionForm = document.getElementById("transaction-form");
+        const amountInput = document.getElementById("amount");
+        const depositButton = document.getElementById("deposit-button");
+        const withdrawButton = document.getElementById("withdraw-button");
+        const transactionHistory = document.getElementById("transaction-history");
+
+        // Gérer la soumission du formulaire de connexion
+        loginForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            const username = document.getElementById("username").value;
+            currentUser.username = username;
+            updateDashboard();
+        });
+
+        // Gérer la déconnexion
+        logoutButton.addEventListener("click", function () {
+            currentUser.username = "Utilisateur";
+            currentUser.balance = 0;
+            updateDashboard();
+        });
+
+        // Gérer les dépôts
+        depositButton.addEventListener("click", function () {
+            const amount = parseFloat(amountInput.value);
+            if (!isNaN(amount) && amount > 0) {
+                currentUser.balance += amount;
+                updateTransactionHistory(`Dépôt de ${amount.toFixed(2)} MAD`);
+                updateDashboard();
+            }
+        });
+
+        // Gérer les retraits
+        withdrawButton.addEventListener("click", function () {
+            const amount = parseFloat(amountInput.value);
+            if (!isNaN(amount) && amount > 0 && amount <= currentUser.balance) {
+                currentUser.balance -= amount;
+                updateTransactionHistory(`Retrait de ${amount.toFixed(2)} MAD`);
+                updateDashboard();
+            }
+        });
+
+        // Mettre à jour le tableau de bord
+        function updateDashboard() {
+            userNameSpan.textContent = currentUser.username;
+            balanceSpan.textContent = currentUser.balance.toFixed(2) + " MAD";
+            loginForm.style.display = "none";
+            dashboardSection.style.display = "block";
+            transactionSection.style.display = "block";
+        }
+
+        // Mettre à jour l'historique des transactions
+        function updateTransactionHistory(transactionDescription) {
+            const transactionItem = document.createElement("li");
+            transactionItem.textContent = transactionDescription;
+            transactionHistory.querySelector("ul").appendChild(transactionItem);
+        }
+    </script>
